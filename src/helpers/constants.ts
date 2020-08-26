@@ -7,3 +7,4 @@ export const LEVEL_NAME = [
   'Тупичок Гоблина',
   'Бойцы',
 ];
+export const MAX_LEVELS = 5;
