@@ -1,9 +1,9 @@
-import { MAX_LEVELS } from './constants'
+import { MAX_ITEMS } from './constants';
 
 export const generateCorrectAnswer = (): number => {
-  return Math.floor(Math.random() * MAX_LEVELS);
-}
+  return Math.floor(Math.random() * MAX_ITEMS);
+};
 
-// export const shuffleAnswers<T> = (arr: T[]): T[] => {
-//   return arr.sort(() => Math.random() - 0.5);
-// }
+export function shuffleAnswers<T>(arr: T[]): T[] {
+  return arr.sort(() => Math.random() - 0.5);
+}

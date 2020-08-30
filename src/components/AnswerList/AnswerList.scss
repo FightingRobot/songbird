@@ -1,0 +1,24 @@
+.indicator {
+    display: inline-block;
+    margin-right: 10px;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+    background-color: #444;
+}
+
+.indicator_success {
+    .indicator {
+        background-color: #00bc8c;
+    }
+}
+
+.indicator_danger {
+    .indicator {
+        background-color: #e74c3c;
+    }
+}
+
+.list-group-item-action {
+    cursor: pointer;
+}

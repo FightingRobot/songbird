@@ -1,14 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { ICardInfo } from './helpers/interfaces'
+import { ICardInfo } from './helpers/interfaces';
 
-import { generateCorrectAnswer } from './helpers/functions';
+import { generateCorrectAnswer, shuffleAnswers } from './helpers/functions';
 import { DATA_LINK, MAX_LEVELS } from './helpers/constants';
 
-import data from './assets/data'
-import Header from './components/Header/Header'
-import Card from './components/Card/Card'
-import AnswerList from './components/AnswerList/AnswerList'
-import Pagination from './components/Pagination/Pagination'
+import data from './assets/data';
+import Header from './components/Header/Header';
+import Card from './components/Card/Card';
+import AnswerList from './components/AnswerList/AnswerList';
+import Pagination from './components/Pagination/Pagination';
+import EndScreen from './components/EndScreen/EndScreen';
 
 const App: React.FC = () => {
   const [score, changeScore] = useState<number>(0);
@@ -22,10 +23,10 @@ const App: React.FC = () => {
   const [isGameFinished, toggleFinished] = useState<boolean>(false);
 
   const successAudio = useRef<HTMLAudioElement>(new Audio(`${DATA_LINK}right.wav`));
-  const failureAudio = useRef<HTMLAudioElement>(new Audio(`${DATA_LINK}wrong.wav`));
+  const failureAudio = useRef<HTMLAudioElement>(new Audio(`${DATA_LINK}wrong.mp3`));
 
   useEffect(() => {
-    changeCardList(data[level])
+    changeCardList(shuffleAnswers<ICardInfo>(data[level]))
 
     changeCorrectAnswer(generateCorrectAnswer());
     toggleCorrect(false);
@@ -38,6 +39,10 @@ const App: React.FC = () => {
       changeClickedAnswers(cardList.map((item, index) => index));
     }
   }, [isCorrect]);
+
+  useEffect(() => {
+    console.log('Правильный ответ:' + correctAnswer)
+  }, [cardList]);
 
   const onAnswerClick = (index: number): void => {
     if (index === correctAnswer) {
@@ -76,10 +81,25 @@ const App: React.FC = () => {
   }
 
   const btnClasses: string[] = ['btn', 'w-100'];
-  if (true) {
+  if (isCorrect) {
     btnClasses.push('btn-success');
   } else {
     btnClasses.push('btn-danger');
+  }
+
+  const restart = () => {
+    changeCardList(data[level])
+
+    changeCorrectAnswer(generateCorrectAnswer());
+    toggleCorrect(false);
+    toggleFinished(false);
+    changeClickedAnswers([]);
+    changeScore(0);
+    changeLevel(0);
+  }
+
+  if (isGameFinished) {
+    return <EndScreen score={score} btnHander={restart} />;
   }
 
   return (

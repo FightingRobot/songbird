@@ -1,5 +1,6 @@
 import React from 'react';
 import { LEVEL_NAME } from '../../helpers/constants';
+import './Pagination.scss'
 
 interface IProps {
   level: number;
@@ -8,7 +9,7 @@ interface IProps {
 const Pagination: React.FC<IProps> = (props: IProps) => {
   return (
     <div className="row p-3">
-      <ul className="pagination w-100 d-flex flex-wrap">
+      <ul className="pagination w-100 d-flex flex-wrap border border-light">
         {LEVEL_NAME.map((item, index) => {
           const classes: string[] = [
             'w-100',

@@ -1,5 +1,6 @@
 import React from 'react';
 import { ICardInfo } from '../../helpers/interfaces';
+import './AnswerList.scss';
 
 interface IProps {
   list: ICardInfo[];
@@ -10,25 +11,23 @@ interface IProps {
 
 const AnswerList: React.FC<IProps> = ({ list, clickHandler, clickedAnswers, correctAnswer }) => {
   return (
-    <div className="list-group">
+    <ul className="list-group">
       {list.map((item, index) => {
-        const classes: string[] = ['list-group-item', 'list-group-item-action', 'p-3'];
+        const classes: string[] = ['list-group-item', 'list-group-item-action', 'p-3', 'border-bottom', 'border-light'];
         if (clickedAnswers.includes(index)) {
           if (index === correctAnswer) {
-            classes.push('list-group-item-success');
+            classes.push('indicator_success');
           } else {
-            classes.push('list-group-item-danger');
+            classes.push('indicator_danger');
           }
-        } else {
-          classes.push('list-group-item-dark');
         }
         return (
           <li key={item.name} className={classes.join(' ')} onClick={() => clickHandler(index)}>
-            {item.name}
+            {<div className="indicator"></div>}{item.name}
           </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 

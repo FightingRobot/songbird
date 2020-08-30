@@ -1,1 +1,0 @@
-export const DATABASE_LINK = 'https://raw.githubusercontent.com/FightingRobot/songbird-data/master/';

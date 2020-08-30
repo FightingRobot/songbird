@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 import { DATA_LINK } from '../../helpers/constants';
@@ -22,7 +22,7 @@ const Card: React.FC<CardProps> = (props: CardProps) => {
   const audioRef = useRef<any>();
 
   if (props.isSecret) {
-    imgClass = 'w-50';
+    imgClass = 'w-75';
 
     if (!props.isCorrect) {
       name = '******';
@@ -35,22 +35,25 @@ const Card: React.FC<CardProps> = (props: CardProps) => {
   }
 
   return (
-    <div className="card border border-white bg-dark p-2">
+    <div className="card border border-light bg-dark p-2">
       <div className="row no-gutters">
         <div className="col-md-5 d-flex justify-content-center align-items-center">
           <img src={`${DATA_LINK}${image}`} alt="Birdy" className={'card-img ' + imgClass} />
         </div>
         <div className="col-md-7">
           <div className="card-body">
+            {props.isSecret ? null : (<small className='text-muted'>Исполнитель</small>)}
             <div className="card-title text-white">{name}</div>
             {props.nameLatin ? (
               <>
-                <hr className="bg-white" />
+                <small className='text-muted'>Название</small>
                 <div className="card-title text-white">{props.nameLatin}</div>
               </>
             ) : null}
-            <hr className="bg-white" />
+            <hr className="bg-light" />
             <AudioPlayer
+              className="bg-dark border border-light"
+              // layout='horizontal'
               ref={audioRef}
               autoPlay={false}
               autoPlayAfterSrcChange={false}
